@@ -214,6 +214,10 @@ class Context
 
 		// set context variables in $GLOBALS (to use in display handler)
 		$this->context = &$GLOBALS['__Context__'];
+
+		if (!isset($this->context)) {
+			$this->context = new stdClass();
+		}
 		$this->context->lang = &$GLOBALS['lang'];
 		$this->context->_COOKIE = $_COOKIE;
 
@@ -535,7 +539,7 @@ class Context
 	 *
 	 * @return string DB's db_type
 	 */
-	function getDBType()
+	public static function getDBType()
 	{
 		$self = self::getInstance();
 		return $self->db_info->master_db["db_type"];
@@ -558,7 +562,7 @@ class Context
 	 *
 	 * @return object DB information
 	 */
-	function getDBInfo()
+	public static function getDBInfo()
 	{
 		$self = self::getInstance();
 		return $self->db_info;
@@ -591,7 +595,7 @@ class Context
 	 *
 	 * @return array Supported languages
 	 */
-	function loadLangSupported()
+	public static function loadLangSupported()
 	{
 		static $lang_supported = null;
 		if(!$lang_supported)
@@ -612,7 +616,7 @@ class Context
 	 *
 	 * @return array Selected languages
 	 */
-	function loadLangSelected()
+	public static function loadLangSelected()
 	{
 		static $lang_selected = null;
 		if(!$lang_selected)
@@ -799,7 +803,7 @@ class Context
 	 * @param string $site_title Browser title  to be set
 	 * @return void
 	 */
-	function setBrowserTitle($site_title)
+	public static function setBrowserTitle($site_title)
 	{
 		if(!$site_title)
 		{
@@ -855,7 +859,7 @@ class Context
 	 * @param string $path Path of the language file
 	 * @return void
 	 */
-	function loadLang($path)
+	public static function loadLang($path)
 	{
 		global $lang;
 
@@ -993,7 +997,7 @@ class Context
 	 *
 	 * @return string Language type
 	 */
-	function getLangType()
+	public static function getLangType()
 	{
 		$self = self::getInstance();
 		return $self->lang_type;
@@ -1005,7 +1009,7 @@ class Context
 	 * @param string $code Language variable name
 	 * @return string If string for the code exists returns it, otherwise returns original code
 	 */
-	function getLang($code)
+	public static function getLang($code)
 	{
 		if(!$code)
 		{
@@ -1967,7 +1971,7 @@ class Context
 	 * @param mixed $set_to_get_vars If not FALSE, Set to get vars.
 	 * @return void
 	 */
-	function set($key, $val, $set_to_get_vars = 0)
+	public static function set($key, $val, $set_to_get_vars = 0)
 	{
 		$self = self::getInstance();
 		$self->context->{$key} = $val;
@@ -1992,7 +1996,7 @@ class Context
 	 * @param string $key Key
 	 * @return string Key
 	 */
-	function get($key)
+	public static function get($key)
 	{
 		$self = self::getInstance();
 
@@ -2622,7 +2626,7 @@ class Context
 	 *
 	 * @retrun string The path of the config file that contains database settings
 	 */
-	function getConfigFile()
+	public static function getConfigFile()
 	{
 		return _XE_PATH_ . 'files/config/db.config.php';
 	}
@@ -2642,7 +2646,7 @@ class Context
 	 *
 	 * @return bool True if the config file exists, otherwise FALSE.
 	 */
-	function isInstalled()
+	public static function isInstalled()
 	{
 		return FileHandler::hasContent(self::getConfigFile());
 	}
@@ -2757,7 +2761,7 @@ class Context
 	 * @param mixed $is_http_equiv value of http_equiv
 	 * @return void
 	 */
-	function addMetaTag($name, $content, $is_http_equiv = FALSE)
+	public static function addMetaTag($name, $content, $is_http_equiv = FALSE)
 	{
 		$self = self::getInstance();
 		$self->meta_tags[$name . "\t" . ($is_http_equiv ? '1' : '0')] = $content;

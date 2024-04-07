@@ -15,7 +15,7 @@ class FileHandler
 	 * @param string $source path to change into absolute path
 	 * @return string Absolute path
 	 */
-	function getRealPath($source)
+	public static function getRealPath($source)
 	{
 		if(strlen($source) >= 2 && substr_compare($source, './', 0, 2) === 0)
 		{
@@ -61,7 +61,7 @@ class FileHandler
 		$oDir = dir($source_dir);
 		while($file = $oDir->read())
 		{
-			if($file{0} == '.')
+			if($file[0] == '.')
 			{
 				continue;
 			}
@@ -124,7 +124,7 @@ class FileHandler
 	 * @param string $filename Path of target file
 	 * @return string The content of the file. If target file does not exist, this function returns nothing.
 	 */
-	function readFile($filename)
+	public static function readFile($filename)
 	{
 		if(($filename = self::exists($filename)) === FALSE || filesize($filename) < 1)
 		{
@@ -142,7 +142,7 @@ class FileHandler
 	 * @param string $mode a(append) / w(write)
 	 * @return void
 	 */
-	function writeFile($filename, $buff, $mode = "w")
+	public static function writeFile($filename, $buff, $mode = "w")
 	{
 		$filename = self::getRealPath($filename);
 		$pathinfo = pathinfo($filename);
@@ -192,7 +192,7 @@ class FileHandler
 	 * @param string $target Path of target file
 	 * @return bool Returns TRUE on success or FALSE on failure.
 	 */
-	function moveFile($source, $target)
+	public static function moveFile($source, $target)
 	{
 		if(($source = self::exists($source)) !== FALSE)
 		{
@@ -227,7 +227,7 @@ class FileHandler
 	 * @param bool $concat_prefix If TRUE, return file name as absolute path
 	 * @return string[] Array of the filenames in the path
 	 */
-	function readDir($path, $filter = '', $to_lower = FALSE, $concat_prefix = FALSE)
+	public static function readDir($path, $filter = '', $to_lower = FALSE, $concat_prefix = FALSE)
 	{
 		$path = self::getRealPath($path);
 		$output = array();
@@ -245,7 +245,7 @@ class FileHandler
 		$files = scandir($path);
 		foreach($files as $file)
 		{
-			if($file{0} == '.' || ($filter && !preg_match($filter, $file)))
+			if($file[0] == '.' || ($filter && !preg_match($filter, $file)))
 			{
 				continue;
 			}
@@ -279,7 +279,7 @@ class FileHandler
 	 * @param string $path_string Path of target directory
 	 * @return bool TRUE if success. It might return nothing when ftp is used and connection to the ftp address failed.
 	 */
-	function makeDir($path_string)
+	public static function makeDir($path_string)
 	{
 		$path_string = preg_replace("/[^a-z0-9-_\\\\\/\.]+/i", '', $path_string);
 		$path_string = self::getRealPath($path_string);
@@ -1083,7 +1083,7 @@ class FileHandler
 	 * @param string $filename Target file name
 	 * @return bool Returns TRUE if the file exists and contains something.
 	 */
-	function hasContent($filename)
+	public static function hasContent($filename)
 	{
 		return (is_readable($filename) && (filesize($filename) > 0));
 	}
@@ -1094,7 +1094,7 @@ class FileHandler
 	 * @param string $filename Target file name
 	 * @return bool Returns FALSE if the file does not exists, or Returns full path file(string).
 	 */
-	function exists($filename)
+	public static function exists($filename)
 	{
 		$filename = self::getRealPath($filename);
 		return file_exists($filename) ? $filename : FALSE;

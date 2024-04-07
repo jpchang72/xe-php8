@@ -1158,7 +1158,7 @@ class ModuleHandler extends Handler
 	 * @param string $module module name
 	 * @return string path of the module
 	 * */
-	function getModulePath($module)
+	public static function getModulePath($module)
 	{
 		return sprintf('./modules/%s/', $module);
 	}
@@ -1171,7 +1171,7 @@ class ModuleHandler extends Handler
 	 * @return ModuleObject module instance (if failed it returns null)
 	 * @remarks if there exists a module instance created before, returns it.
 	 * */
-	function &getModuleInstance($module, $type = 'view', $kind = '')
+	public static function &getModuleInstance($module, $type = 'view', $kind = '')
 	{
 
 		if(__DEBUG__ == 3)
@@ -1258,7 +1258,7 @@ class ModuleHandler extends Handler
 		return $GLOBALS['_loaded_module'][$module][$type][$kind];
 	}
 
-	function _getModuleFilePath($module, $type, $kind, &$classPath, &$highClassFile, &$classFile, &$instanceName)
+	public static function _getModuleFilePath($module, $type, $kind, &$classPath, &$highClassFile, &$classFile, &$instanceName)
 	{
 		$classPath = ModuleHandler::getModulePath($module);
 

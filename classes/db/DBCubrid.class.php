@@ -59,7 +59,7 @@ class DBCubrid extends DB
 	 * Create an instance of this class
 	 * @return DBCubrid return DBCubrid object instance
 	 */
-	function create()
+	public static function create()
 	{
 		return new DBCubrid;
 	}
