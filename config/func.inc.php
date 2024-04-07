@@ -220,7 +220,9 @@ function executeQueryArray($query_id, $args = NULL, $arg_columns = NULL)
 {
 	$oDB = DB::getInstance();
 	$output = $oDB->executeQuery($query_id, $args, $arg_columns);
-	if(!is_array($output->data) && count($output->data) > 0)
+
+	# TODO: need to check, attribute see if what is set on data attribute.
+	if(!is_array($output->data) && isset($output->data))
 	{
 		$output->data = array($output->data);
 	}

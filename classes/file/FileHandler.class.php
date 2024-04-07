@@ -166,7 +166,7 @@ class FileHandler
 	 * @param string $filename path of target file
 	 * @return bool Returns TRUE on success or FALSE on failure.
 	 */
-	function removeFile($filename)
+	public static function removeFile($filename)
 	{
 		return (($filename = self::exists($filename)) !== FALSE) && @unlink($filename);
 	}
@@ -519,7 +519,7 @@ class FileHandler
 	 * @param string $post_data Request arguments array for POST method
 	 * @return string If success, the content of the target file. Otherwise: none
 	 */
-	function getRemoteResource($url, $body = null, $timeout = 3, $method = 'GET', $content_type = null, $headers = array(), $cookies = array(), $post_data = array(), $request_config = array())
+	public static function getRemoteResource($url, $body = null, $timeout = 3, $method = 'GET', $content_type = null, $headers = array(), $cookies = array(), $post_data = array(), $request_config = array())
 	{
 		require_once(_XE_PATH_ . 'libs/idna_convert/idna_convert.class.php');
 		$IDN = new idna_convert(array('idn_version' => 2008));

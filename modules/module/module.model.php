@@ -838,9 +838,9 @@ class moduleModel extends module
 			$buff['simple_setup_index_act'] = '$info->simple_setup_index_act=\'%s\';';
 			$buff['admin_index_act'] = '$info->admin_index_act = \'%s\';';
 
-			$xml_obj = XmlParser::loadXmlFile($xml_file); // /< Read xml file and convert it to xml object
+			$xml_obj = BaseXmlParser::loadXmlFile($xml_file); // /< Read xml file and convert it to xml object
 
-			if(!count($xml_obj->module)) return; // /< Error occurs if module tag doesn't included in the xml
+			if(!$xml_obj->module instanceof Xml_Node_) return; // /< Error occurs if module tag doesn't included in the xml
 
 			$grants = $xml_obj->module->grants->grant; // /< Permission information
 			$permissions = $xml_obj->module->permissions->permission; // /<  Acting permission

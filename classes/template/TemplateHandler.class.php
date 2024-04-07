@@ -573,7 +573,7 @@ class TemplateHandler
 				// find closing tag
 				$close_php = '<?php ' . str_repeat('}', $closing) . ' ?>';
 				//  self closing tag
-				if($node{1} == '!' || substr($node, -2, 1) == '/' || isset($self_closing[$tag]))
+				if($node[1] == '!' || substr($node, -2, 1) == '/' || isset($self_closing[$tag]))
 				{
 					$nodes[$idx + 1] = $close_php . $nodes[$idx + 1];
 				}
@@ -646,10 +646,10 @@ class TemplateHandler
 				return $m[0];
 			}
 			
-			if($m[1]{0} == '@')
+			if($m[1][0] == '@')
 			{
 				$m[1] = $this->_replaceVar(substr($m[1], 1));
-				return "<?php {$m[1]} ?>";
+				return "<?php {$m[1]} // it was using curly braces, so updated to use array type ?>";
 			}
 			else
 			{
@@ -946,7 +946,7 @@ class TemplateHandler
 			}
 			if($mm[1])
 			{
-				if($mm[1]{0} == 'e')
+				if($mm[1][0] == 'e')
 				{
 					return '<?php } ?>' . $m[9];
 				}
@@ -1009,7 +1009,7 @@ class TemplateHandler
 		$_path = $path;
 
 		$fileDir = strtr(realpath($this->path), '\\', '/');
-		if($path{0} != '/')
+		if($path[0] != '/')
 		{
 			$path = strtr(realpath($fileDir . '/' . $path), '\\', '/');
 		}

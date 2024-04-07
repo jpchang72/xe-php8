@@ -551,7 +551,7 @@ class Context
 	 * @param object $db_info DB information
 	 * @return void
 	 */
-	function setDBInfo($db_info)
+	public static function setDBInfo($db_info)
 	{
 		$self = self::getInstance();
 		$self->db_info = $db_info;
@@ -584,7 +584,7 @@ class Context
 	 *
 	 * @return string Default URL
 	 */
-	function getDefaultUrl()
+	public static function getDefaultUrl()
 	{
 		$db_info = self::getDBInfo();
 		return $db_info->default_url;
@@ -818,7 +818,7 @@ class Context
 	 *
 	 * @return string Browser title(htmlspecialchars applied)
 	 */
-	function getBrowserTitle()
+	public static function getBrowserTitle()
 	{
 		$self = self::getInstance();
 
@@ -1044,7 +1044,7 @@ class Context
 	 * @param object $source_obj Conatins strings to convert
 	 * @return object converted object
 	 */
-	function convertEncoding($source_obj)
+	public static function convertEncoding($source_obj)
 	{
 		$charset_list = array(
 			'UTF-8', 'EUC-KR', 'CP949', 'ISO8859-1', 'EUC-JP', 'SHIFT_JIS',
@@ -1082,7 +1082,7 @@ class Context
 	 * @see arrayConvWalkCallback will replaced array_walk_recursive in >=PHP5
 	 * @return void
 	 */
-	function checkConvertFlag(&$val, $key = null, $charset = null)
+	public static function checkConvertFlag(&$val, $key = null, $charset = null)
 	{
 		static $flag = TRUE;
 		if($charset)
@@ -1124,7 +1124,7 @@ class Context
 	 * @param string $str String to convert
 	 * @return string converted string
 	 */
-	function convertEncodingStr($str)
+	public static function convertEncodingStr($str)
 	{
         if(!$str) return null;
 		$obj = new stdClass();
@@ -1164,7 +1164,7 @@ class Context
 	 *
 	 * @return string Response method. If it's not set, returns request method.
 	 */
-	function getResponseMethod()
+	public static function getResponseMethod()
 	{
 		$self = self::getInstance();
 
@@ -1560,7 +1560,7 @@ class Context
 	 * Return request method
 	 * @return string Request method type. (Optional - GET|POST|XMLRPC|JSON)
 	 */
-	function getRequestMethod()
+	public static function getRequestMethod()
 	{
 		$self = self::getInstance();
 		return $self->request_method;
@@ -1617,7 +1617,7 @@ class Context
 	 * @param bool $autoEncode If TRUE, url encode automatically, detailed. Use this option, $encode value should be TRUE
 	 * @return string URL
 	 */
-	function getUrl($num_args = 0, $args_list = array(), $domain = null, $encode = TRUE, $autoEncode = FALSE)
+	public static function getUrl($num_args = 0, $args_list = array(), $domain = null, $encode = TRUE, $autoEncode = FALSE)
 	{
 		static $site_module_info = null;
 		static $current_info = null;
@@ -1872,7 +1872,7 @@ class Context
 	 * @param string $domain Domain
 	 * @retrun string converted URL
 	 */
-	function getRequestUri($ssl_mode = FOLLOW_REQUEST_SSL, $domain = null)
+	public static function getRequestUri($ssl_mode = FOLLOW_REQUEST_SSL, $domain = null)
 	{
 		static $url = array();
 
@@ -2012,7 +2012,7 @@ class Context
 	 *
 	 * @return object
 	 */
-	function gets()
+	public static function gets()
 	{
 		$num_args = func_num_args();
 		if($num_args < 1)
@@ -2046,7 +2046,7 @@ class Context
 	 *
 	 * @return BaseObject Request variables.
 	 */
-	function getRequestVars()
+	public static function getRequestVars()
 	{
 		$self = self::getInstance();
 		if($self->get_vars)
@@ -2132,7 +2132,7 @@ class Context
 	 *
 	 * @return string acts in array
 	 */
-	function getSSLActions()
+	public static function getSSLActions()
 	{
 		$self = self::getInstance();
 		if($self->getSslStatus() == 'optional')
@@ -2214,7 +2214,7 @@ class Context
 	 * 		$args[3]: index
 	 *
 	 */
-	function loadFile($args)
+	public static function loadFile($args)
 	{
 		$self = self::getInstance();
 
@@ -2350,7 +2350,7 @@ class Context
 	 * @param string $type Added position. (head:<head>..</head>, body:<body>..</body>)
 	 * @return array Returns javascript file list. Array contains file, targetie.
 	 */
-	function getJsFile($type = 'head')
+	public static function getJsFile($type = 'head')
 	{
 		$self = self::getInstance();
 		return $self->oFrontEndFileHandler->getJsFileList($type);
@@ -2406,7 +2406,7 @@ class Context
 	 *
 	 * @return array Returns css file list. Array contains file, media, targetie.
 	 */
-	function getCSSFile()
+	public static function getCSSFile()
 	{
 		$self = self::getInstance();
 		return $self->oFrontEndFileHandler->getCssFileList();
@@ -2547,7 +2547,7 @@ class Context
 	 *
 	 * @return string Added html code before </head>
 	 */
-	function getHtmlHeader()
+	public static function getHtmlHeader()
 	{
 		$self = self::getInstance();
 		return $self->html_header;
@@ -2569,7 +2569,7 @@ class Context
 	 *
 	 * @return string Return class to html body
 	 */
-	function getBodyClass()
+	public static function getBodyClass()
 	{
 		$self = self::getInstance();
 		$self->body_class = array_unique($self->body_class);
@@ -2593,7 +2593,7 @@ class Context
 	 *
 	 * @return string Added html code after <body>
 	 */
-	function getBodyHeader()
+	public static function getBodyHeader()
 	{
 		$self = self::getInstance();
 		return $self->body_header;
@@ -2615,7 +2615,7 @@ class Context
 	 *
 	 * @return string Added html code before </body>
 	 */
-	function getHtmlFooter()
+	public static function getHtmlFooter()
 	{
 		$self = self::getInstance();
 		return $self->html_footer;
@@ -2667,7 +2667,7 @@ class Context
 	 *
 	 * @return bool True if it is allowed to use rewrite mod, otherwise FALSE
 	 */
-	function isAllowRewrite()
+	public static function isAllowRewrite()
 	{
 		$oContext = self::getInstance();
 		return $oContext->allow_rewrite;
@@ -2734,7 +2734,7 @@ class Context
 	 * Get meta tag
 	 * @return array The list of meta tags
 	 */
-	function getMetaTag()
+	public static function getMetaTag()
 	{
 		$self = self::getInstance();
 

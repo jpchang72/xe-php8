@@ -929,7 +929,7 @@ class ModuleHandler extends Handler
 		{
 			Context::set('XE_VALIDATOR_ID', $_SESSION['XE_VALIDATOR_ID']);
 		}
-		if(count($_SESSION['INPUT_ERROR']))
+		if(isset($_SESSION['INPUT_ERROR']))
 		{
 			Context::set('INPUT_ERROR', $_SESSION['INPUT_ERROR']);
 		}
@@ -1297,7 +1297,7 @@ class ModuleHandler extends Handler
 	 * @param object $obj an object as a parameter to trigger
 	 * @return BaseObject
 	 * */
-	function triggerCall($trigger_name, $called_position, &$obj)
+	public static function triggerCall($trigger_name, $called_position, &$obj)
 	{
 		// skip if not installed
 		if(!Context::isInstalled())
